@@ -1,6 +1,7 @@
 package tp1.Radares;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Pais {
@@ -21,8 +22,27 @@ public class Pais {
 		limSinCobertura++;
 	}
 	
-	public void cubrirLimitrofes(){
-		
+	public void aumentarCoberturaLimitrofe(){
+		limSinCobertura--;
+	}
+	
+	public void instalarAntena(){
+		cobertura = true;
+		Iterator<Pais> itLimitrofes;
+		for(itLimitrofes = limitrofes.iterator(); itLimitrofes.hasNext(); ){
+			Pais paisLim = itLimitrofes.next();
+			paisLim.aumentarCoberturaLimitrofe();
+			paisLim.abarcarLimitrofes();
+		}
+		limSinCobertura = 0;
+	}
+	
+	public void abarcarLimitrofes(){
+		Iterator<Pais> itLimitrofes;
+		for(itLimitrofes = limitrofes.iterator(); itLimitrofes.hasNext(); ){
+			Pais paisLim = itLimitrofes.next();
+			paisLim.aumentarCoberturaLimitrofe();
+		}
 	}
 	
 	@Override
