@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 public class LeerArchivo {
 	private FileInputStream entrada;
 	private BufferedReader buffer;
+	private String strLine;
 	
 	public LeerArchivo(){
 		
@@ -22,18 +23,20 @@ public class LeerArchivo {
 	}
 	
 	public void leerArchivo(){
-		String strLinea;
+		String[] datos = null;
 		try{			
-			while ((strLinea = this.buffer.readLine()) != null){
-				char flag = strLinea.charAt(0);
-				if (flag == 'c'){
+			while ((strLine = this.buffer.readLine()) != null){
+				datos = strLine.split(" ");
+				String flag = datos[0];
+				if (flag == "c"){
 					System.out.println("Este es un comentario");
-				}else if(flag == 'p'){
+				}else if(flag == "p"){
 					System.out.println("Esto es # total de nodos y aristas");
 				}else{
 					System.out.println("Esto me interesa");
-					System.out.println(strLinea);
 				}
+
+				
 			}
 		}catch (Exception e){
 			System.err.println("Ocurrio un error: " + e.getMessage());

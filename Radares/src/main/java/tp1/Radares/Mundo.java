@@ -10,4 +10,10 @@ public class Mundo {
 	public Mundo(){
 		paises = new ArrayList<Pais>();
 	}
+	
+	public ArrayList<Pais> getPaisesConRadar(){
+		ArrayList<Pais> paisesConRadar = new ArrayList<Pais>();
+		//Recorrer paises y copiar los que tienen radar...
+		return paisesConRadar;
+	}
 }
