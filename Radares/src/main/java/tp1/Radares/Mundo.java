@@ -12,6 +12,18 @@ public class Mundo {
 		paises = new ArrayList<Pais>();
 	}
 	
+	public void cargarPaises(String pais, String pLimitrofe){
+		Pais paise = new Pais(pais);
+		Pais paisLimitrofe = new Pais(pLimitrofe);
+		int pos = 0;
+		if ((pos = this.buscarPais(paise)) != -1){
+			this.paises.get(pos).agregarLimitrofe(paisLimitrofe);
+		}else{
+			paise.agregarLimitrofe(paisLimitrofe);
+			agregarPais(paise);
+		}
+	}
+	
 	public void agregarPais(Pais pais){
 		paises.add(pais);
 	}
@@ -32,10 +44,7 @@ public class Mundo {
 		return paisesConRadar;
 	}
 
-	public void agregarPaisLimitrofe(Pais pais) {
-		int pos = paises.indexOf(pais);
-	}
-	
+
 	public void getPaisesConSusLimitrofes(){
 		
 		for(Pais pais:paises){
@@ -46,5 +55,10 @@ public class Mundo {
 			}
 			System.out.println();
 		}
+	}
+	
+	public void colocarRadares(){
+		//coloca radares en el mundo.
+		
 	}
 }

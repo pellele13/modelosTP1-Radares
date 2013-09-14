@@ -40,15 +40,7 @@ public class LeerArchivo {
 	}
 	
 	private void procesar(String paise, String limitrofe) {
-		Pais pais = new Pais(paise);
-		Pais paisLimitrofe = new Pais(limitrofe);
-		int pos = 0;
-		if ((pos = mundo.buscarPais(pais)) != -1){
-			mundo.paises.get(pos).getLimitrofes().add(paisLimitrofe);
-		}else{
-			pais.agregarLimitrofe(paisLimitrofe);
-			mundo.agregarPais(pais);
-		}
+		mundo.cargarPaises(paise, limitrofe);
 	}
 
 	public void cerrarArchivo(){
