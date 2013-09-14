@@ -46,7 +46,7 @@ public class Mundo {
 
 
 	public void getPaisesConSusLimitrofes(){
-		
+		Collections.sort(paises);
 		for(Pais pais:paises){
 			System.out.print("Pais = " + pais.getCodigo() + " ");
 			System.out.print("Sus limitrofes son = ");
@@ -58,6 +58,8 @@ public class Mundo {
 	}
 	
 	public void colocarRadares(){
+		//ordenamos por 
+		Collections.sort(paises);
 		//coloca radares en el mundo.
 		
 	}

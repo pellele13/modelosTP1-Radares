@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Pais {
+public class Pais  implements Comparable<Pais>{
 	String codigo;
 	boolean cobertura;
 	boolean radar;
@@ -77,6 +77,10 @@ public class Pais {
 
 	public List<Pais> getLimitrofes() {
 		return limitrofes;
+	}
+
+	public int compareTo(Pais otroPais) {
+		return Integer.toString(otroPais.getLimitrofes().size()).compareTo(Integer.toString(this.limitrofes.size()));			
 	}
 
 }
