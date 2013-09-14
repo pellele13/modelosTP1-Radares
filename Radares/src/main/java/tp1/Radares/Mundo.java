@@ -58,9 +58,13 @@ public class Mundo {
 	}
 	
 	public void colocarRadares(){
-		//ordenamos por 
+		//ordenamos por cantidad de limitrofes 
 		Collections.sort(paises);
-		//coloca radares en el mundo.
+		for(Pais unPais:paises){
+			if (unPais.limSinCobertura > 0){
+				unPais.instalarRadar();
+			}
+		}
 		
 	}
 }

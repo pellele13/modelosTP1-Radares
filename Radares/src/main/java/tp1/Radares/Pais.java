@@ -79,6 +79,7 @@ public class Pais  implements Comparable<Pais>{
 		return limitrofes;
 	}
 
+	//Ordenamiento de mayor a menor.
 	public int compareTo(Pais otroPais) {
 		return Integer.toString(otroPais.getLimitrofes().size()).compareTo(Integer.toString(this.limitrofes.size()));			
 	}
