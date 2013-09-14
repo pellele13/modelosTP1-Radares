@@ -1,6 +1,7 @@
 package tp1.Radares;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Mundo {
@@ -36,6 +37,7 @@ public class Mundo {
 	}
 	
 	public void getPaisesConSusLimitrofes(){
+		
 		for(Pais pais:paises){
 			System.out.print("Pais = " + pais.getCodigo() + " ");
 			System.out.print("Sus limitrofes son = ");
