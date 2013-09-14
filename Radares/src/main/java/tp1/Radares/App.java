@@ -4,6 +4,15 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+    	LeerArchivo arch = new LeerArchivo();
+    	arch.abrirArchivo("/home/pelele/git/modelosTP1-Radares/Radares/EJEMPLOLECTURA.TXT");
+    	arch.leerArchivo();
+     	Mundo mundito = arch.getMundo();
+     	
+     	mundito.getPaisesConSusLimitrofes();
+     		    	
+    	
+    	arch.cerrarArchivo();
+    	
     }
 }

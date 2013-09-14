@@ -5,13 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Pais {
-	int codigo;
+	String codigo;
 	boolean cobertura;
 	boolean radar;
 	int limSinCobertura;
 	List<Pais> limitrofes;
 	
-	public Pais(int codigo){
+	public Pais(String codigo){
 		this.codigo = codigo;
 		cobertura = false;
 		radar = false;
@@ -70,4 +70,13 @@ public class Pais {
 		Pais oPais = (Pais) otro;
 		return (this.codigo == oPais.codigo);
 	}
+	
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public List<Pais> getLimitrofes() {
+		return limitrofes;
+	}
+
 }
