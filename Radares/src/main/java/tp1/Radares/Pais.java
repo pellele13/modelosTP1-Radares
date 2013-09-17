@@ -19,6 +19,14 @@ public class Pais  implements Comparable<Pais>{
 		limitrofes = new ArrayList<Pais>();
 	}
 	
+	public boolean isRadar() {
+		return radar;
+	}
+
+	public void setRadar(boolean radar) {
+		this.radar = radar;
+	}
+
 	public void agregarLimitrofe(Pais lim){
 		limitrofes.add(lim);
 		limSinCobertura++;

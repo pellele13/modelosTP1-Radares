@@ -14,5 +14,7 @@ public class App
     	
     	arch.cerrarArchivo();
     	
+    	mundito.colocarRadares();
+    	
     }
 }

@@ -38,10 +38,13 @@ public class Mundo {
 		return pos;
 	}
 	
-	public ArrayList<Pais> getPaisesConRadar(){
-		ArrayList<Pais> paisesConRadar = new ArrayList<Pais>();
+	public void getPaisesConRadar(){
+		for(Pais pais:paises){
+			if (pais.isRadar()){
+				System.out.println(pais.getCodigo());
+			}
+		}
 		//Recorrer paises y copiar los que tienen radar...
-		return paisesConRadar;
 	}
 
 
@@ -65,6 +68,6 @@ public class Mundo {
 				unPais.instalarRadar();
 			}
 		}
-		
+		this.getPaisesConRadar();
 	}
 }
