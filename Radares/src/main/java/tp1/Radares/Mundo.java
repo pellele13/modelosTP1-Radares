@@ -22,6 +22,13 @@ public class Mundo {
 			paise.agregarLimitrofe(paisLimitrofe);
 			agregarPais(paise);
 		}
+		pos = 0;
+		if ((pos = this.buscarPais(paisLimitrofe)) != -1){
+			this.paises.get(pos).agregarLimitrofe(paise);
+		}else{
+			paisLimitrofe.agregarLimitrofe(paise);
+			agregarPais(paisLimitrofe);
+		}
 	}
 	
 	public void agregarPais(Pais pais){
@@ -47,27 +54,36 @@ public class Mundo {
 		//Recorrer paises y copiar los que tienen radar...
 	}
 
+	public boolean mundoCubierto(){
+		for(Pais unPais:paises){
+			if (!unPais.tieneCobertura()){
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public void getPaisesConSusLimitrofes(){
 		Collections.sort(paises);
 		for(Pais pais:paises){
-			System.out.print("Pais = " + pais.getCodigo() + " ");
-			System.out.print("Sus limitrofes son = ");
+			System.out.println("Pais = " + pais.getCodigo() + " ");
+			System.out.print("Cobertura: " + pais.tieneCobertura());
+			System.out.println(" Radar: " + pais.tieneRadar());
+			System.out.println("Sus limitrofes son = ");
 			for(Pais paisLimitrofe:pais.getLimitrofes()){
 				System.out.print(paisLimitrofe.getCodigo() + " ");				
 			}
+			System.out.println();
 			System.out.println();
 		}
 	}
 	
 	public void colocarRadares(){
-		//ordenamos por cantidad de limitrofes 
-		Collections.sort(paises);
-		for(Pais unPais:paises){
-			if (unPais.limSinCobertura > 0){
-				unPais.instalarRadar();
-			}
+		while(!mundoCubierto()){
+			//ordenamos descendentemente por cantidad de limitrofes sin cobertura #TODO hacer esto!!
+			Collections.sort(paises);
+			Pais unPais = paises.get(0);
+			unPais.instalarRadar();
 		}
-		this.getPaisesConRadar();
 	}
 }
