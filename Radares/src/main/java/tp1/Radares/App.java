@@ -4,15 +4,18 @@ public class App
 {
     public static void main( String[] args )
     {
-    	LeerArchivo arch = new LeerArchivo();
-    	arch.abrirArchivo("/home/pelele/git/modelosTP1-Radares/Radares/EJEMPLOLECTURA.TXT");
-    	arch.leerArchivo();
-     	Mundo mundito = arch.getMundo();
+    	MundoFactory factory = new MundoFactory();
+    	factory.abrirArchivo("./EJEMPLOLECTURA.TXT");
+    	factory.leerArchivo();
+     	Mundo mundito = factory.getMundo();
      	
      	mundito.getPaisesConSusLimitrofes();
-     		    	
-    	
-    	arch.cerrarArchivo();
+     	
+//    	mundito.colocarRadares();
+//    	
+//     	mundito.getPaisesConSusLimitrofes();
+     	
+    	factory.cerrarArchivo();
     	
     	mundito.colocarRadares();
     	
