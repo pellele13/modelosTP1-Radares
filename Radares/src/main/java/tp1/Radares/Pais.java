@@ -44,10 +44,6 @@ public class Pais  implements Comparable<Pais>{
 		return cobertura;
 	}
 	
-	public void aumentarCoberturaLimitrofe(){
-		limSinCobertura--;
-	}
-	
 	public void instalarRadar(){
 		radar = true;
 		cubrirPais();
@@ -55,7 +51,7 @@ public class Pais  implements Comparable<Pais>{
 		for(itLimitrofes = limitrofes.iterator(); itLimitrofes.hasNext(); ){
 			Pais paisLim = itLimitrofes.next();
 			paisLim.cubrirPais();
-			paisLim.aumentarCoberturaLimitrofe();
+			paisLim.limSinCobertura--;
 			paisLim.abarcarLimitrofes();
 		}
 		limSinCobertura = 0;
@@ -65,7 +61,7 @@ public class Pais  implements Comparable<Pais>{
 		Iterator<Pais> itLimitrofes;
 		for(itLimitrofes = limitrofes.iterator(); itLimitrofes.hasNext(); ){
 			Pais paisLim = itLimitrofes.next();
-			paisLim.aumentarCoberturaLimitrofe();
+			paisLim.limSinCobertura--;
 		}
 	}
 	
