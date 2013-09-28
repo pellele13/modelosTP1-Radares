@@ -83,9 +83,14 @@ public class Pais  implements Comparable<Pais>{
 		return limitrofes;
 	}
 
-	//Ordenamiento de mayor a menor.
+	// El ordenamiento se realiza por el contador de cantidad de países limítrofes que no tienen cobertura.
+	// Esto se hace para que en cada vuelta, se elija el pais con más limitrofes que no tengan cobertura primero.
 	public int compareTo(Pais otroPais) {
-		return Integer.toString(otroPais.getLimitrofes().size()).compareTo(Integer.toString(this.limitrofes.size()));			
+		if(this.limSinCobertura < otroPais.limSinCobertura)
+			return 1;
+		if(this.limSinCobertura > otroPais.limSinCobertura)
+			return -1;
+		return 0;
 	}
 
 }

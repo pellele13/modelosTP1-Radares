@@ -66,21 +66,22 @@ public class Mundo {
 	public void getPaisesConSusLimitrofes(){
 		Collections.sort(paises);
 		for(Pais pais:paises){
-			System.out.println("Pais = " + pais.getCodigo() + " ");
+			System.out.print("Pais: " + pais.getCodigo() + " | ");
 			System.out.print("Cobertura: " + pais.tieneCobertura());
 			System.out.println(" Radar: " + pais.tieneRadar());
-			System.out.println("Sus limitrofes son = ");
+			System.out.print("Limitrofes: ");
 			for(Pais paisLimitrofe:pais.getLimitrofes()){
 				System.out.print(paisLimitrofe.getCodigo() + " ");				
 			}
 			System.out.println();
 			System.out.println();
 		}
+		System.out.println("------------------------------------------------");
 	}
 	
 	public void colocarRadares(){
 		while(!mundoCubierto()){
-			//ordenamos descendentemente por cantidad de limitrofes sin cobertura #TODO hacer esto!!
+			//ordenamos descendentemente por cantidad de limitrofes sin cobertura
 			Collections.sort(paises);
 			Pais unPais = paises.get(0);
 			unPais.instalarRadar();

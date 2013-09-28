@@ -51,7 +51,10 @@ public class MundoFactory {
 		}
 	}
 
-	public Mundo getMundo() {
+	public Mundo getMundo(String origen) {
+    	abrirArchivo(origen);
+    	leerArchivo();
+    	cerrarArchivo();
 		return mundo;
 	}
 

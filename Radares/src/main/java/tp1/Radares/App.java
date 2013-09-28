@@ -5,19 +5,15 @@ public class App
     public static void main( String[] args )
     {
     	MundoFactory factory = new MundoFactory();
-    	factory.abrirArchivo("./EJEMPLOLECTURA.TXT");
-    	factory.leerArchivo();
-     	Mundo mundito = factory.getMundo();
+//     	Mundo mundito = factory.getMundo("./EJEMPLOLECTURA.TXT");
      	
+     	Mundo mundito = factory.getMundo(args[0]);
+
      	mundito.getPaisesConSusLimitrofes();
      	
-//    	mundito.colocarRadares();
-//    	
-//     	mundito.getPaisesConSusLimitrofes();
-     	
-    	factory.cerrarArchivo();
-    	
     	mundito.colocarRadares();
     	
+     	mundito.getPaisesConSusLimitrofes();
+     	
     }
 }
