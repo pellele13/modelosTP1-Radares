@@ -3,12 +3,19 @@ package tp1.Radares;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.List;
+
+import tp1.Exportador.ColeccionLimitrofes;
+import tp1.Exportador.Exportador;
+import tp1.Exportador.GrupoLimitrofes;
 
 public class MundoFactory {
 	private FileInputStream entrada;
 	private BufferedReader buffer;
 	private String strLine;
 	Mundo mundo = new Mundo();
+	private ColeccionLimitrofes S = new ColeccionLimitrofes();
+	private Exportador salida = new Exportador();
 	
 	public MundoFactory(){
 		entrada = null;
@@ -57,5 +64,46 @@ public class MundoFactory {
     	cerrarArchivo();
 		return mundo;
 	}
+
+	public void generarS() {
+		List<Pais> paises = mundo.getListaPaises();
+		GrupoLimitrofes grupo;
+		Integer paisVertice;
+		List<Pais> limitrofes;
+
+		for (Pais pais : paises){
+			paisVertice = new Integer(pais.getCodigo());
+			grupo = new GrupoLimitrofes(paisVertice);
+			limitrofes = pais.getLimitrofes();
+			for (Pais paisLim : limitrofes){
+				grupo.agregarPais(new Integer(paisLim.getCodigo()));
+			}
+			S.agregarSubconjunto(grupo);
+		}
+	}
+
+	public void exportarModelo(String rutaArchivoDestino) {
+		try {
+			salida.crearArchivo(rutaArchivoDestino);
+		}
+		catch (Exception e) {
+			System.out.println("Error al crear archivo de salida");
+			return;
+		}
+		salida.escribirString("// Variables Bivalentes\n");
+		S.exportarVariables(salida);
+
+		salida.escribirString("\n// Objetivo\n");
+		salida.escribirString("minimize\n");
+		S.exportarFuncional(salida);
+
+		salida.escribirString("\n// Modelo\n");
+		salida.escribirString("subject to {\n");
+		S.exportarRestricciones(salida);
+		salida.escribirString("}");
+
+		salida.cerrarArchivo();
+	}
+
 
 }

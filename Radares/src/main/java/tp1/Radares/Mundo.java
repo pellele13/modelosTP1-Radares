@@ -12,6 +12,10 @@ public class Mundo {
 		paises = new ArrayList<Pais>();
 	}
 	
+	public List<Pais> getListaPaises(){
+		return paises;
+	}
+	
 	public void cargarPaises(String pais, String pLimitrofe){
 		Pais paise = new Pais(pais);
 		Pais paisLimitrofe = new Pais(pLimitrofe);
@@ -63,7 +67,7 @@ public class Mundo {
 		return true;
 	}
 
-	public void getPaisesConSusLimitrofes(){
+	public void imprimir(){
 		Collections.sort(paises);
 		for(Pais pais:paises){
 			System.out.print("Pais: " + pais.getCodigo() + " | ");
