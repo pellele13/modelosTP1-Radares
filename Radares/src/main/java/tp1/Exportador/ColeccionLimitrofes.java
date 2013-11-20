@@ -31,15 +31,17 @@ public class ColeccionLimitrofes {
 	}
 
 	public void exportarVariables(Exportador salida) {
-		for (int bivalente = 1; bivalente <= coleccion.size(); ++bivalente) {
-			salida.escribirString("dvar int+ Y" + bivalente + ";\n");
+		for(GrupoLimitrofes pais : coleccion){
+			salida.escribirString("dvar int Y" + pais.getPaisVertice().toString() + " in bivalente;\n");			
 		}
 	}
 
 	public void exportarFuncional(Exportador salida) {
-		for (int bivalente = 1; bivalente < coleccion.size(); ++bivalente) {
-			salida.escribirString("Y" + bivalente + " + ");
+		for(int i=0; coleccion.size() > i; i++){
+			if(coleccion.size()-1 > i)
+				salida.escribirString("Y" + coleccion.get(i).getPaisVertice().toString() + " + ");
+			else
+				salida.escribirString("Y" + coleccion.get(i).getPaisVertice().toString() + ";\n");
 		}
-		salida.escribirString("Y" + coleccion.size() + ";\n");
 	}
 }

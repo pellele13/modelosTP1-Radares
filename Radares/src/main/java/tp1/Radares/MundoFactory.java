@@ -13,7 +13,7 @@ public class MundoFactory {
 	private FileInputStream entrada;
 	private BufferedReader buffer;
 	private String strLine;
-	Mundo mundo = new Mundo();
+	Mundo mundo;
 	private ColeccionLimitrofes S = new ColeccionLimitrofes();
 	private Exportador salida = new Exportador();
 	
@@ -59,6 +59,7 @@ public class MundoFactory {
 	}
 
 	public Mundo getMundo(String origen) {
+		mundo = new Mundo(origen);
     	abrirArchivo(origen);
     	leerArchivo();
     	cerrarArchivo();
@@ -90,6 +91,9 @@ public class MundoFactory {
 			System.out.println("Error al crear archivo de salida");
 			return;
 		}
+		
+		salida.escribirString("range bivalente = 0..1;\n");
+
 		salida.escribirString("// Variables Bivalentes\n");
 		S.exportarVariables(salida);
 

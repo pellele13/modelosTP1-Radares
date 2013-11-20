@@ -6,56 +6,69 @@ import java.util.List;
 
 public class Mundo {
 
+	String nombre;
 	List<Pais> paises;
+	int cantLimites;
+	long iniProc;
+	long finProc;
 	
-	public Mundo(){
+	public Mundo(String nombre){
+		this.nombre = nombre;
 		paises = new ArrayList<Pais>();
+		cantLimites = 0;
 	}
 	
 	public List<Pais> getListaPaises(){
 		return paises;
 	}
 	
-	public void cargarPaises(String pais, String pLimitrofe){
-		Pais paise = new Pais(pais);
-		Pais paisLimitrofe = new Pais(pLimitrofe);
-		int pos = 0;
-		if ((pos = this.buscarPais(paise)) != -1){
-			this.paises.get(pos).agregarLimitrofe(paisLimitrofe);
-		}else{
-			paise.agregarLimitrofe(paisLimitrofe);
-			agregarPais(paise);
+	public void cargarPaises(String sPais, String sLimitrofe){
+		//Busco si existe los paises en el grafo; sino, los cargo
+		Pais paisCentral = buscarPais(sPais);
+		Pais paisLimitrofe = buscarPais(sLimitrofe);
+		if (paisCentral == null){
+			paisCentral = new Pais(sPais);
+			agregarPais(paisCentral);
 		}
-		pos = 0;
-		if ((pos = this.buscarPais(paisLimitrofe)) != -1){
-			this.paises.get(pos).agregarLimitrofe(paise);
-		}else{
-			paisLimitrofe.agregarLimitrofe(paise);
+		if (paisLimitrofe == null){
+			paisLimitrofe = new Pais(sLimitrofe);
 			agregarPais(paisLimitrofe);
 		}
+
+		//Agrego el pais limitrofe para cada uno, y cuento una vez la relación
+		cantLimites += paisCentral.agregarLimitrofe(paisLimitrofe);
+		paisLimitrofe.agregarLimitrofe(paisCentral);
 	}
 	
 	public void agregarPais(Pais pais){
 		paises.add(pais);
 	}
 	
-	public int buscarPais (Pais pais){
-		int pos = -1;
+	public Pais buscarPais (String cod){
 		for(int i = 0; i < paises.size(); i++){
-			if (paises.get(i).getCodigo().equals(pais.getCodigo())){
-				pos = i;
-			} 
-		}
-		return pos;
-	}
-	
-	public void getPaisesConRadar(){
-		for(Pais pais:paises){
-			if (pais.isRadar()){
-				System.out.println(pais.getCodigo());
+			if (paises.get(i).getCodigo().equals(cod)){
+				return paises.get(i);
 			}
 		}
-		//Recorrer paises y copiar los que tienen radar...
+		return null;
+	}
+	
+	public void colocarRadares(){
+		iniProc = System.nanoTime();
+		while(!mundoCubierto()){
+			//ordenamos descendentemente por cantidad de limitrofes sin cobertura
+			Collections.sort(paises);
+			Pais unPais = paises.get(0);
+			//Si el primer pais de la lista tiene algun limitrofe sin cubrir, entonces instalo el radar
+			if(unPais.getLimSinCobertura() > 0){
+				unPais.instalarRadar();
+			}
+			//Sino, quiere decir que quedó algún país aislado sin cobertura. Lo busco e instalo
+			else{
+				cubrirRestantes();
+			}
+		}
+		finProc = System.nanoTime();
 	}
 
 	public boolean mundoCubierto(){
@@ -67,28 +80,36 @@ public class Mundo {
 		return true;
 	}
 
-	public void imprimir(){
-		Collections.sort(paises);
-		for(Pais pais:paises){
-			System.out.print("Pais: " + pais.getCodigo() + " | ");
-			System.out.print("Cobertura: " + pais.tieneCobertura());
-			System.out.println(" Radar: " + pais.tieneRadar());
-			System.out.print("Limitrofes: ");
-			for(Pais paisLimitrofe:pais.getLimitrofes()){
-				System.out.print(paisLimitrofe.getCodigo() + " ");				
+	public void cubrirRestantes(){
+		for(Pais unPais:paises){
+			if (!unPais.tieneCobertura()){
+				unPais.instalarRadar();
 			}
-			System.out.println();
-			System.out.println();
 		}
+	}
+
+	public void imprimirDatosPrevios(){
+		System.out.println("------------------------------------------------");
+		System.out.println(" Modelo: " + nombre);
+		System.out.println("Cantidad de países: " + paises.size());
+		System.out.println("Cantidad de límites: " + cantLimites);
+	}
+	
+	public void imprimirResultados(){
+		System.out.println("------------------------------------------------");
+		System.out.println("Solución:");
+		int sol = 0;
+		for(Pais pais:paises){
+			if (pais.isRadar()){
+				System.out.print(pais.getCodigo() + " - ");
+				sol++;
+			}
+		}
+		System.out.println();
+		System.out.println("Total países con radar: " + sol);
+		double duracion = (finProc - iniProc) / 1e6;
+		System.out.println("Duración ms: " + duracion);
 		System.out.println("------------------------------------------------");
 	}
 	
-	public void colocarRadares(){
-		while(!mundoCubierto()){
-			//ordenamos descendentemente por cantidad de limitrofes sin cobertura
-			Collections.sort(paises);
-			Pais unPais = paises.get(0);
-			unPais.instalarRadar();
-		}
-	}
 }

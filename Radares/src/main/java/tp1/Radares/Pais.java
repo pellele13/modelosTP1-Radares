@@ -27,9 +27,19 @@ public class Pais  implements Comparable<Pais>{
 		this.radar = radar;
 	}
 
-	public void agregarLimitrofe(Pais lim){
-		limitrofes.add(lim);
-		limSinCobertura++;
+	/**
+	 * Este método retorna 1 si pudo agregar exitosamente la relación;
+	 * de lo contrario retorna 0. 
+	 * @param lim
+	 * @return
+	 */
+	public int agregarLimitrofe(Pais lim){
+		if(!esLimitrofe(lim)){
+			limitrofes.add(lim);
+			limSinCobertura++;
+			return 1;
+		}
+		return 0;
 	}
 	
 	public boolean tieneRadar(){
@@ -43,6 +53,15 @@ public class Pais  implements Comparable<Pais>{
 	public boolean tieneCobertura(){
 		return cobertura;
 	}
+
+	public int getLimSinCobertura(){
+		return limSinCobertura;
+	}
+	
+	private void disminuirCoberturaLim(){
+		if(limSinCobertura > 0)
+			limSinCobertura--;
+	}
 	
 	public void instalarRadar(){
 		radar = true;
@@ -51,18 +70,27 @@ public class Pais  implements Comparable<Pais>{
 		for(itLimitrofes = limitrofes.iterator(); itLimitrofes.hasNext(); ){
 			Pais paisLim = itLimitrofes.next();
 			paisLim.cubrirPais();
-			paisLim.limSinCobertura--;
+			paisLim.disminuirCoberturaLim();
 			paisLim.abarcarLimitrofes();
 		}
 		limSinCobertura = 0;
 	}
 	
-	public void abarcarLimitrofes(){
+	private void abarcarLimitrofes(){
 		Iterator<Pais> itLimitrofes;
 		for(itLimitrofes = limitrofes.iterator(); itLimitrofes.hasNext(); ){
 			Pais paisLim = itLimitrofes.next();
-			paisLim.limSinCobertura--;
+			paisLim.disminuirCoberturaLim();
 		}
+	}
+	
+	public boolean esLimitrofe(Pais lim){
+		for(Pais p : limitrofes){
+			if(p.equals(lim)){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@Override
